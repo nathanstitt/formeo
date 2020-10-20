@@ -79,7 +79,7 @@ export default class FormeoRenderer {
     Object.assign({}, columnData, {
       id: this.prefixId(id),
       children: this.processFields(columnData.children),
-      style: `width: ${columnData.config.width || '100%'}`,
+      style: columnData.config.width === false ? '' : `width: ${columnData.config.width || '100%'}`,
     })
 
   processRows = stageId =>

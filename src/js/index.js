@@ -1,5 +1,6 @@
 import Editor from './editor'
 import Renderer from './renderer'
+import Controls from './components/controls'
 
 if (window !== undefined) {
   window.FormeoEditor = Editor
@@ -8,5 +9,6 @@ if (window !== undefined) {
 
 export const FormeoEditor = Editor
 export const FormeoRenderer = Renderer
+export const FormeoControls = Controls
 
-export default { FormeoEditor, FormeoRenderer }
+export default { FormeoEditor, FormeoRenderer, FormeoControls }
