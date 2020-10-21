@@ -75,9 +75,10 @@ export default class FormeoRenderer {
    * @param  {Object} columnData
    * @return {Object} processed column data
    */
-  processColumn = ({ id, ...columnData }) =>
+  processColumn = ({ id, className, config, ...columnData }) =>
     Object.assign({}, columnData, {
       id: this.prefixId(id),
+      className: config.className ? `${className} ${config.className}` : className,
       children: this.processFields(columnData.children),
       style: columnData.config.width === false ? '' : `width: ${columnData.config.width || '100%'}`,
     })

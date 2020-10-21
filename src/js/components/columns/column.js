@@ -11,6 +11,7 @@ const DEFAULT_DATA = () =>
   Object.freeze({
     config: {
       width: '100%',
+      className: '',
     },
     children: [],
     className: COLUMN_CLASSNAME,
@@ -23,9 +24,6 @@ const DOM_CONFIGS = {
       pointerdown: resize,
     },
     content: [dom.icon('triangle-down'), dom.icon('triangle-up')],
-  }),
-  editWindow: () => ({
-    className: 'column-edit group-config',
   }),
 }
 
@@ -61,7 +59,7 @@ export default class Column extends Component {
         },
       },
       id: this.id,
-      content: [this.getActionButtons(), DOM_CONFIGS.editWindow(), DOM_CONFIGS.resizeHandle(), children],
+      content: [this.getActionButtons(), this.editWindow, DOM_CONFIGS.resizeHandle(), children],
     })
 
     this.processConfig(this.dom)
@@ -100,6 +98,33 @@ export default class Column extends Component {
       draggable: `.${FIELD_CLASSNAME}`,
       handle: '.item-handle',
     })
+  }
+
+  get editWindow() {
+    const _this = this
+    const editWindow = {
+      className: `${this.name}-edit group-config`,
+    }
+    const classLabel = {
+      tag: 'label',
+      content: i18n.get('class'),
+      className: 'col-sm-4 form-control-label',
+    }
+    const classInput = {
+      tag: 'input',
+      attrs: {
+        type: 'text',
+        ariaLabel: 'Class for column',
+        value: _this.get('config.className'),
+        placeholder: i18n.get('class'),
+      },
+      action: {
+        input: ({ target: { value } }) => _this.set('config.className', value),
+      },
+      className: '',
+    }
+    editWindow.children = [classLabel, classInput]
+    return editWindow
   }
 
   /**
