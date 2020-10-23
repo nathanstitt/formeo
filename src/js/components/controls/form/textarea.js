@@ -35,6 +35,7 @@ class TextAreaControl extends Control {
       },
       attrs: {
         required: false,
+        className: '',
       },
     }
     super(textAreaConfig)
