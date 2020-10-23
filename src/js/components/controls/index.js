@@ -166,6 +166,10 @@ export class Controls {
     const { id, ...config } = control
     const controlId = id || uuid()
     const controlConfig = cloneDeep(config)
+    const customConfig = this.options.elementCustomizations[config.controlData.meta.id]
+    if (customConfig) {
+      controlConfig.controlData = merge(controlConfig.controlData, customConfig)
+    }
     this.data.set(controlId, controlConfig)
     return { id: controlId, ...controlConfig }
   }

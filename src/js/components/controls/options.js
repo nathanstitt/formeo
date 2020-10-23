@@ -2,6 +2,7 @@ const defaultOptions = Object.freeze({
   sortable: true,
   elementOrder: {},
   groupOrder: [],
+  elementCustomizations: {},
   groups: [
     {
       id: 'layout',
