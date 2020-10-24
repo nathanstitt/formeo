@@ -1,4 +1,9 @@
 const config = {
+  controls: {
+    disable: {
+      groups: ['html'],
+    },
+  },
   rows: {
     all: {
       events: {
@@ -9,10 +14,13 @@ const config = {
     },
   },
   fields: {
-    checkbox: {
-      actionButtons: {
-        buttons: ['edit'],
+    'html.header': {
+      meta: {
+        group: 'common',
       },
+       actionButtons: {
+         buttons: ['edit'],
+       },
     },
     'a33bcc32-c54c-46ed-9609-7cdb5b3dc511': {
       events: {

@@ -1,10 +1,37 @@
 const controls = {
   sortable: false,
   groupOrder: ['common', 'html'],
+
+  elementCustomizations: {
+    'layout-column': {
+      attrs: { className: 'row FD' },
+    },
+    
+    textarea: {
+      config: {
+        inputWrap: 'foo',
+      },
+      attrs: {
+        className: 'form-control',
+      },
+    },
+    divider: {
+      meta: {
+        group: 'common',
+      },
+    },
+  },
+
   disable: {
-    // elements: ['button'],
+    elements: ['button'],
+    formActions: true,
+
+    // groups: ['html', 'layout'],
+
+
   },
   elements: [
+    
     {
       tag: 'input',
       config: {
@@ -23,6 +50,7 @@ const controls = {
         required: true,
       },
     },
+
     //     {
     //   tag: 'input',
     //   attrs: {
@@ -69,6 +97,7 @@ const controls = {
   ],
   elementOrder: {
     common: [
+      'divider',
       'button',
       'checkbox',
       'date-input',
