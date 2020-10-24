@@ -154,14 +154,15 @@ const webpackConfig = {
   plugins,
   devtool,
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: !IS_PRODUCTION,
-      }),
-      new OptimizeCSSAssetsPlugin(),
-    ],
+    minimize: false,
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //     cache: true,
+    //     parallel: true,
+    //     sourceMap: !IS_PRODUCTION,
+    //   }),
+    //   new OptimizeCSSAssetsPlugin(),
+    // ],
   },
   resolve: {
     modules: [resolve(__dirname, 'src'), 'node_modules'],
