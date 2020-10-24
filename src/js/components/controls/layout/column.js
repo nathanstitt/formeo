@@ -3,6 +3,9 @@ export const columnControl = {
     label: 'column',
     hideLabel: true,
   },
+  attrs: {
+    className: '',
+  },
   meta: {
     group: 'layout',
     icon: 'columns',

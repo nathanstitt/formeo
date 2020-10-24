@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual'
 import dom from './common/dom'
 import { uuid, isAddress, isExternalAddress } from './common/utils'
-import { STAGE_CLASSNAME, UUID_REGEXP } from './constants'
+import { STAGE_CLASSNAME, UUID_REGEXP, bsColRegExp } from './constants'
 
 const RENDER_PREFIX = 'f-'
 
@@ -75,14 +75,21 @@ export default class FormeoRenderer {
    * @param  {Object} columnData
    * @return {Object} processed column data
    */
-  processColumn = ({ id, className, config, ...columnData }) =>
-    Object.assign({}, columnData, {
+  processColumn = ({ id, className, config, ...columnData }) => {
+    if (columnData.attrs && columnData.attrs.className) {
+      className = columnData.attrs.className
+    }
+    if (!className.match(bsColRegExp)) {
+      const colWidth = Math.round(12 * (parseInt(config.width || 100) / 100))
+      className = colWidth === 1 ? className : `${className} col-${colWidth}`
+    }
+    return Object.assign({}, columnData, {
       id: this.prefixId(id),
       className: config.className ? `${className} ${config.className}` : className,
       children: this.processFields(columnData.children),
-      style: config.width === false ? '' : `width: ${config.width || '100%'}`,
     })
-
+  }
+  
   processRows = stageId =>
     this.orderChildren('rows', this.form.stages[stageId].children).reduce(
       (acc, row) => (row ? [...acc, this.processRow(row)] : acc),
@@ -100,9 +107,13 @@ export default class FormeoRenderer {
    * @return {Object} row config object
    */
   processRow = (data, type = 'row') => {
-    const { config, id } = data
-    const className = [`formeo-${type}-wrap`]
-    const rowData = Object.assign({}, data, { children: this.processColumns(data.id), id: this.prefixId(id) })
+    const { config, id, attrs } = data
+    const className = `formeo-${type}-wrap`
+    const rowData = Object.assign({}, data, {
+      className: (attrs && attrs.className) || data.className,
+      children: this.processColumns(data.id),
+      id: this.prefixId(id)
+    })
     this.cacheComponent(rowData)
 
     const configConditions = [
@@ -111,7 +122,8 @@ export default class FormeoRenderer {
       { condition: config.inputGroup, result: () => this.addButton(id) },
     ]
 
-    const children = configConditions.reduce((acc, { condition, result }) => (condition ? [...acc, result()] : acc), [])
+    const children = configConditions.reduce((acc, { condition, result }) =>
+      (condition ? [...acc, result()] : acc), [])
 
     if (config.inputGroup) {
       className.push(RENDER_PREFIX + 'input-group-wrap')

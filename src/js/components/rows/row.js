@@ -75,6 +75,26 @@ export default class Row extends Component {
     const editWindow = {
       className: `${this.name}-edit group-config`,
     }
+
+    const classLabel = {
+      tag: 'label',
+      content: i18n.get('class'),
+      className: 'col-sm-4 form-control-label',
+    }
+    const classInput = {
+      tag: 'input',
+      attrs: {
+        type: 'text',
+        ariaLabel: 'Class for column',
+        value: _this.get('attrs.className'),
+        placeholder: i18n.get('class'),
+      },
+      action: {
+        input: ({ target: { value } }) => _this.set('attrs.className', value),
+      },
+      className: '',
+    }
+
     const fieldsetLabel = {
       tag: 'label',
       content: i18n.get('row.settings.fieldsetWrap'),
@@ -157,7 +177,7 @@ export default class Row extends Component {
     }
     const columnSettingsPreset = dom.formGroup([columnSettingsPresetLabel, columnSettingsPresetSelect], 'row')
 
-    editWindow.children = [inputGroupInput, dom.create('hr'), fieldSetControls, dom.create('hr'), columnSettingsPreset]
+    editWindow.children = [classLabel, classInput, dom.create('hr'), inputGroupInput, dom.create('hr'), fieldSetControls, dom.create('hr'), columnSettingsPreset]
 
     return editWindow
   }

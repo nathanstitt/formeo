@@ -115,11 +115,11 @@ export default class Column extends Component {
       attrs: {
         type: 'text',
         ariaLabel: 'Class for column',
-        value: _this.get('config.className'),
+        value: _this.get('attrs.className'),
         placeholder: i18n.get('class'),
       },
       action: {
-        input: ({ target: { value } }) => _this.set('config.className', value),
+        input: ({ target: { value } }) => _this.set('attrs.className', value),
       },
       className: '',
     }

@@ -3,6 +3,9 @@ export const rowControl = {
     label: 'row',
     hideLabel: true,
   },
+  attrs: {
+    className: '',
+  },
   meta: {
     group: 'layout',
     icon: 'rows',
