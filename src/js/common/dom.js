@@ -395,7 +395,7 @@ class DOM {
   processOptions(options, elem, isPreview) {
     const { action, attrs } = elem
     const fieldType = attrs.type || elem.tag
-    const id = attrs.id || elem.id
+    const id = elem.id || attrs.id
 
     const optionMap = (option, i) => {
       const { label, ...rest } = option
@@ -403,7 +403,7 @@ class DOM {
         const input = {
           tag: 'input',
           attrs: {
-            name: id,
+            name: attrs.name || id,
             type: fieldType,
             value: option.value || '',
             id: `${id}-${i}`,
